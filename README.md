@@ -1,12 +1,12 @@
-# simtemplate
+# simstreams
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/ismayc/simtemplate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ismayc/simtemplate/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Run simulation experiments in parallel on a multicore personal computer.
 
-`simtemplate` generalizes the `sim_template` program developed in the book
+`simstreams` generalizes the `sim_template` program developed in the book
 *Parallel Simulation Experiments on a Personal Computer* by R. L. Eubank and
 Chester Ismay (CRC Press). The book's template reads its worker from a file
 named `sim_worker.R` in the working directory. In the package the worker is an
@@ -26,7 +26,7 @@ the template are available on their own:
   speed-up (Chapter 7).
 
 The companion Python package is
-[simtemplate-python](https://github.com/ismayc/simtemplate-python). The book's
+[simstreams-python](https://github.com/ismayc/simstreams-python). The book's
 code repository is
 [parallel-simulation-book](https://github.com/ismayc/parallel-simulation-book),
 and the web edition is at
@@ -36,7 +36,7 @@ and the web edition is at
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("ismayc/simtemplate")
+remotes::install_github("ismayc/simstreams")
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ the number of replications, the number of processes, and then any model
 parameters. The one difference is that the worker comes first.
 
 ``` r
-library(simtemplate)
+library(simstreams)
 
 # Chapter 3: estimate pi with 1,000,000 replications of 100 darts on 4 cores
 out <- sim_template(pi_worker, 1234, 100, 1000000, 4)

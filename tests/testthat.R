@@ -1,4 +1,4 @@
 library(testthat)
-library(simtemplate)
+library(simstreams)
 
-test_check("simtemplate")
+test_check("simstreams")

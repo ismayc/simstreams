@@ -70,8 +70,8 @@ sim_template <- function(worker, seed, n, n_reps, n_cores, ...,
   parallel::clusterEvalQ(cl, {
     library(dqrng)
     dqrng::dqRNGkind("pcg64")
-    if (requireNamespace("simtemplate", quietly = TRUE)) {
-      library(simtemplate)
+    if (requireNamespace("simstreams", quietly = TRUE)) {
+      library(simstreams)
     }
   })
   for (pkg in packages) {

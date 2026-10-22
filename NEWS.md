@@ -1,4 +1,4 @@
-# simtemplate 0.1.0
+# simstreams 0.1.0
 
 * First release. `sim_template()`, `sim_template_serial()`, `make_set_up()`,
   `split_reps()`, `set_worker_rng()`, `bind_results()`, `benchmark_cores()`,

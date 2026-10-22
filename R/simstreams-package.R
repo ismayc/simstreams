@@ -1,4 +1,4 @@
-#' simtemplate: Parallel Simulation Experiments on a Personal Computer
+#' simstreams: Parallel Simulation Experiments on a Personal Computer
 #'
 #' The package generalizes the `sim_template` program developed in the book
 #' *Parallel Simulation Experiments on a Personal Computer* by R. L. Eubank
@@ -19,8 +19,8 @@
 #'   example workers.
 #' * [benchmark_cores()] times a simulation across core counts.
 #'
-#' The companion Python package is `simtemplate` on PyPI
-#' (<https://github.com/ismayc/simtemplate-python>). The book's code
+#' The companion Python package is `simstreams` on PyPI
+#' (<https://github.com/ismayc/simstreams-python>). The book's code
 #' repository is <https://github.com/ismayc/parallel-simulation-book>, and the
 #' web edition is at <https://parallel-simulation-book.netlify.app>.
 #'

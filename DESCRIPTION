@@ -1,4 +1,4 @@
-Package: simtemplate
+Package: simstreams
 Title: Parallel Simulation Experiments on a Personal Computer
 Version: 0.1.0
 Authors@R: c(
@@ -15,9 +15,9 @@ Description: Run simulation experiments in parallel on a multicore personal
     (estimating pi, the Cauchy interquartile range, and a segmented
     regression bootstrap) and a timing helper for speed-up experiments.
 License: MIT + file LICENSE
-URL: https://github.com/ismayc/simtemplate,
+URL: https://github.com/ismayc/simstreams,
     https://parallel-simulation-book.netlify.app
-BugReports: https://github.com/ismayc/simtemplate/issues
+BugReports: https://github.com/ismayc/simstreams/issues
 Depends:
     R (>= 4.1)
 Imports:
