@@ -1,4 +1,4 @@
-# simstreams
+# simstreams <img src="man/figures/logo.png" align="right" height="138" alt="simstreams hex sticker: four braided random-number streams, navy and magenta" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml)
