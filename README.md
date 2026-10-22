@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ismayc/simstreams/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/ismayc/simstreams/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/ismayc/simstreams/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
 Run simulation experiments in parallel on a multicore personal computer.
@@ -99,6 +100,20 @@ benchmark_cores(run_pi, cores = 1:8, n_runs = 10)
 A fixed `seed` reproduces a run exactly on the same number of cores. Changing
 `n_cores` changes how the replications are divided across the streams, so the
 full quartet `seed`, `n`, `n_reps`, and `n_cores` is what reproduces a result.
+
+## Development
+
+``` r
+devtools::test()
+```
+
+The test suite covers every line of the package, and CI fails below 100%.
+To measure it locally, set `NOT_CRAN` so the tests marked `skip_on_cran()`
+run (they are the ones that start worker processes):
+
+``` r
+withr::with_envvar(c(NOT_CRAN = "true"), covr::package_coverage())
+```
 
 ## License
 

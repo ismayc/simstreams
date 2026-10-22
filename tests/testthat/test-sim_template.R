@@ -73,3 +73,44 @@ test_that("benchmark_cores reports medians, speed-up, and efficiency", {
   expect_length(attr(bm, "times"), 2)
   expect_length(attr(bm, "times")[[1]], 2)
 })
+
+test_that("benchmark_cores warms up, reports progress, and checks its input", {
+  calls <- 0
+  run_fake <- function(n_cores) calls <<- calls + 1
+  expect_output(
+    bm <- benchmark_cores(run_fake, cores = 1, n_runs = 2, warmup = 1),
+    "Benchmarking 1 core"
+  )
+  expect_equal(calls, 3)  # one warm-up run plus two timed runs
+  expect_equal(nrow(bm), 1)
+  expect_error(benchmark_cores("run_pi"), "function")
+})
+
+test_that("the per-process helpers work in the current process too", {
+  # init_worker attaches dqrng and selects PCG64
+  expect_true(init_worker())
+  expect_true("package:dqrng" %in% search())
+
+  # attach_package attaches a package by name
+  expect_equal(attach_package("matrixStats"), "matrixStats")
+  expect_true("package:matrixStats" %in% search())
+
+  # run_worker calls the worker on one process's set_up
+  set_up <- make_set_up(1234, 20, 1)
+  expect_identical(run_worker(set_up[[1]], iqr_worker, 100, 5),
+                   sim_template_serial(iqr_worker, 1234, 100, 20, 5))
+})
+
+test_that("every book worker runs in the current process", {
+  pi_hat <- sim_template_serial(pi_worker, 1234, 100, 10)
+  expect_length(pi_hat, 10)
+  expect_true(all(pi_hat >= 0 & pi_hat <= 4))
+
+  theta_hat <- sim_template_serial(iqr_worker, 1234, 100, 10, 5)
+  expect_length(theta_hat, 10)
+
+  reg <- sim_template_serial(regression_worker, 1234, 50, 2, .5, .25, 1, 1.5, 5)
+  expect_equal(dim(reg), c(3L, 2L))
+  expect_equal(rownames(reg), c("theta_hat", "lower", "upper"))
+  expect_true(all(reg["lower", ] <= reg["upper", ]))
+})

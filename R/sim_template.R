@@ -67,24 +67,34 @@ sim_template <- function(worker, seed, n, n_reps, n_cores, ...,
 
   # every process uses PCG64 through dqrng, and can call this package's
   # helpers (set_worker_rng) without a prefix
-  parallel::clusterEvalQ(cl, {
-    library(dqrng)
-    dqrng::dqRNGkind("pcg64")
-    if (requireNamespace("simstreams", quietly = TRUE)) {
-      library(simstreams)
-    }
-  })
+  parallel::clusterCall(cl, init_worker)
   for (pkg in packages) {
-    parallel::clusterCall(cl, function(p) library(p, character.only = TRUE),
-                          pkg)
+    parallel::clusterCall(cl, attach_package, pkg)
   }
 
   # apply the worker to each process's set_up
-  parallel::parLapply(
-    cl, set_up,
-    function(worker_set_up, worker, n, ...) worker(n, worker_set_up, ...),
-    worker = worker, n = n, ...
-  )
+  parallel::parLapply(cl, set_up, run_worker, worker = worker, n = n, ...)
+}
+
+# Runs once on each process: attach dqrng, select PCG64, and attach this
+# package when it is installed so workers can call its helpers unprefixed.
+init_worker <- function() {
+  library(dqrng)
+  dqrng::dqRNGkind("pcg64")
+  if (requireNamespace("simstreams", quietly = TRUE)) {
+    library(simstreams)
+  }
+  invisible(TRUE)
+}
+
+attach_package <- function(pkg) {
+  library(pkg, character.only = TRUE)
+  invisible(pkg)
+}
+
+# The call each process makes: the worker on its own set_up.
+run_worker <- function(worker_set_up, worker, n, ...) {
+  worker(n, worker_set_up, ...)
 }
 
 #' Run a simulation experiment in a single process

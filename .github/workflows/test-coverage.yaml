@@ -1,0 +1,42 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+name: test-coverage
+
+permissions: read-all
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # covr's test run leaves NOT_CRAN unset, which would skip every test
+      # marked skip_on_cran(); the book pins also need 4 processes.
+      NOT_CRAN: true
+      _R_CHECK_LIMIT_CORES_: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::covr
+          needs: coverage
+
+      - name: Measure coverage and require 100%
+        run: |
+          cov <- covr::package_coverage()
+          print(cov)
+          pct <- covr::percent_coverage(cov)
+          if (pct < 100) {
+            print(covr::zero_coverage(cov)[, c("filename", "line")])
+            stop(sprintf("coverage is %.2f%%, below 100%%", pct))
+          }
+        shell: Rscript {0}
