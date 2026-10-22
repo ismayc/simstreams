@@ -79,10 +79,10 @@ sim_template <- function(worker, seed, n, n_reps, n_cores, ...,
 # Runs once on each process: attach dqrng, select PCG64, and attach this
 # package when it is installed so workers can call its helpers unprefixed.
 init_worker <- function() {
-  library(dqrng)
+  attach_package("dqrng")
   dqrng::dqRNGkind("pcg64")
   if (requireNamespace("simstreams", quietly = TRUE)) {
-    library(simstreams)
+    attach_package("simstreams")
   }
   invisible(TRUE)
 }
