@@ -25,6 +25,9 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      # --as-cran caps makeCluster() at 2 processes unless this is already
+      # set; the book's printed results need 4, and the tests pin them.
+      _R_CHECK_LIMIT_CORES_: false
 
     steps:
       - uses: actions/checkout@v4

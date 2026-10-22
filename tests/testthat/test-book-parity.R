@@ -4,6 +4,7 @@
 
 test_that("Chapter 3 pi: sim_template(1234, 100, 1e6, 4) prints 3.141554", {
   skip_on_cran()
+  skip_if_core_limited(4)
   out <- sim_template(pi_worker, 1234, 100, 1000000, 4)
   expect_length(out, 4)
   expect_equal(round(mean(bind_results(out)), 6), 3.141554)
@@ -11,6 +12,7 @@ test_that("Chapter 3 pi: sim_template(1234, 100, 1e6, 4) prints 3.141554", {
 
 test_that("Chapter 3 Cauchy: sim_template(1234, 100, 20, 4, 5)", {
   skip_on_cran()
+  skip_if_core_limited(4)
   out <- sim_template(iqr_worker, 1234, 100, 20, 4, 5)
   expect_equal(
     lapply(out, function(v) round(unname(v), 6)),
