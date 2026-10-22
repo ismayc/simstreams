@@ -242,7 +242,17 @@ def main():
     ])
     print(f"wrote R branding to {HERE}")
     if PY_PROJECT.exists():
-        build("py", PY_PROJECT / "branding", [])
+        docs = PY_PROJECT / "docs"
+        build("py", PY_PROJECT / "branding", [
+            # the mkdocs site: header logo, favicons, link preview, and the
+            # README's sticker path (branding/logo.png) resolved from docs/
+            ("logo.svg", docs / "assets" / "logo.svg"),
+            ("favicon.svg", docs / "assets" / "favicon.svg"),
+            ("favicon-32.png", docs / "assets" / "favicon-32.png"),
+            ("apple-touch-icon.png", docs / "assets" / "apple-touch-icon.png"),
+            ("og.png", docs / "assets" / "og.png"),
+            ("logo.png", docs / "branding" / "logo.png"),
+        ])
         print(f"wrote Python branding to {PY_PROJECT / 'branding'}")
     else:
         print(f"skipped Python branding: {PY_PROJECT} not found")
