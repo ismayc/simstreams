@@ -225,9 +225,20 @@ def build(key, brand_dir, copies):
 
 
 def main():
+    fav = PROJECT / "pkgdown" / "favicon"
     build("r", HERE, [
         ("logo.svg", PROJECT / "man" / "figures" / "logo.svg"),
         ("logo.png", PROJECT / "man" / "figures" / "logo.png"),
+        # pkgdown copies pkgdown/favicon/ to the site root and then does not
+        # build its own favicons (which would call an online service)
+        ("favicon.svg", fav / "favicon.svg"),
+        ("favicon-32.png", fav / "favicon-32.png"),
+        ("favicon-96x96.png", fav / "favicon-96x96.png"),
+        ("apple-touch-icon.png", fav / "apple-touch-icon.png"),
+        ("favicon.ico", fav / "favicon.ico"),
+        ("site.webmanifest", fav / "site.webmanifest"),
+        # pkgdown/assets/ is copied to the site root too: the link preview
+        ("og.png", PROJECT / "pkgdown" / "assets" / "og.png"),
     ])
     print(f"wrote R branding to {HERE}")
     if PY_PROJECT.exists():

@@ -15,7 +15,8 @@ Description: Run simulation experiments in parallel on a multicore personal
     (estimating pi, the Cauchy interquartile range, and a segmented
     regression bootstrap) and a timing helper for speed-up experiments.
 License: MIT + file LICENSE
-URL: https://github.com/ismayc/simstreams,
+URL: https://ismayc.github.io/simstreams/,
+    https://github.com/ismayc/simstreams,
     https://parallel-simulation-book.netlify.app
 BugReports: https://github.com/ismayc/simstreams/issues
 Depends:

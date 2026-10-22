@@ -1,0 +1,71 @@
+url: https://ismayc.github.io/simstreams/
+
+template:
+  bootstrap: 5
+  bslib:
+    # The sticker's palette: cream paper, the book's navy as ink, its magenta as the accent
+    bg: "#fbf9f3"
+    fg: "#02172c"
+    primary: "#a50162"
+    secondary: "#4f5356"
+    base_font: {google: {family: "Barlow", wght: [400, 600]}}
+    heading_font: {google: {family: "Big Shoulders Display", wght: 900}}
+    code_font: {google: "JetBrains Mono"}
+  includes:
+    in_header: |
+      <link rel="icon" href="https://ismayc.github.io/simstreams/favicon.svg" type="image/svg+xml">
+      <link rel="icon" href="https://ismayc.github.io/simstreams/favicon-32.png" sizes="32x32" type="image/png">
+      <link rel="apple-touch-icon" href="https://ismayc.github.io/simstreams/apple-touch-icon.png">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="simstreams: parallel simulation experiments on a personal computer">
+      <meta property="og:description" content="One independent PCG64 stream per process, the replications divided evenly, and the worker as an argument. The R companion to the Eubank and Ismay book.">
+      <meta property="og:url" content="https://ismayc.github.io/simstreams/">
+      <meta property="og:image" content="https://ismayc.github.io/simstreams/og.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta name="twitter:card" content="summary_large_image">
+
+home:
+  title: simstreams, parallel simulation experiments on a personal computer
+  description: >
+    Run a simulation worker across the cores of a personal computer with one
+    independent PCG64 stream per process. The R companion to the book by
+    R. L. Eubank and Chester Ismay.
+  links:
+    - text: The book, web edition
+      href: https://parallel-simulation-book.netlify.app
+    - text: The book's code repository
+      href: https://github.com/ismayc/parallel-simulation-book
+    - text: Python package
+      href: https://github.com/ismayc/simstreams-python
+
+navbar:
+  structure:
+    left: [reference, news]
+    right: [search, github]
+
+reference:
+  - title: Run a simulation
+    desc: The general parallel simulation algorithm, with the worker as an argument.
+    contents:
+      - sim_template
+      - sim_template_serial
+      - bind_results
+  - title: Building blocks
+    desc: The pieces of the template, for writing your own driver or worker.
+    contents:
+      - make_set_up
+      - split_reps
+      - set_worker_rng
+  - title: The book's workers
+    desc: The example workers from Chapters 3 and 5.
+    contents:
+      - pi_worker
+      - iqr_worker
+      - regression_worker
+  - title: Timing
+    contents:
+      - benchmark_cores
+  - title: Package
+    contents:
+      - simstreams-package
